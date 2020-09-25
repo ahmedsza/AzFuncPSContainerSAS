@@ -46,6 +46,7 @@ RUN apt-get update \
     && mkdir -p /root/.local/share \
     #
     # Install Azure Functions Core Tools v3
+    && curl -sSL https://raw.githubusercontent.com/PowerShell/PowerShell/master/tools/install-powershell.sh | bash \
     && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg \
     && mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ \
     && wget -q https://packages.microsoft.com/config/debian/10/prod.list \
