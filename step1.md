@@ -43,7 +43,7 @@ or with paramaters - http://localhost:7071/api/HttpSASDemo?name=hello
 
 ## Deploy to Azure
 
-login to Azure with Azrure CLI
+#### login to Azure with Az CLI
 `az login`
 
 #### setup variables. Change names appropriately 
