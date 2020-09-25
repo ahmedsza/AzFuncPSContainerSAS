@@ -27,7 +27,7 @@ func --version
 === create the function project
 
 func init AzFuncSAS --powershell
-cd cd .\AzFuncSAS\
+cd .\AzFuncSAS\
 
 == add the function the project
 func new --name HttpSASDemo --template "HTTP trigger"
@@ -48,7 +48,6 @@ $rgname='AzPSFunctionSAS-rg'
 $location='westeurope'
 $storageaccountname='azfnstorage003'
 $azurefunctionappname='azpsfuncapp01'
-# create the Azure Resource group
 
 
 # create the resource group
@@ -63,7 +62,7 @@ az functionapp create --resource-group $rgname --consumption-plan-location $loca
 # deploy the function 
 func azure functionapp publish $azurefunctionappname
 
---make note of the URL with the key included 
+# make note of the URL with the key included 
 
 # test it (with URL from above) eg 
 https://azpsfuncapp01.azurewebsites.net/api/httpsasdemo?code=AZIJU7SWA450emQynqosxp4CmzZexqZ5e7hAmxWx6ZVwVG0HZkAwOQ==
