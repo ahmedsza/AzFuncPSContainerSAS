@@ -1,5 +1,5 @@
 ## Prereqs
-#### ### **=== PREREQ, Assumes windows ==== ******
+#### PEREQ, Assumes windows 
 
 *1.  Install Azure Function v3*
 https://go.microsoft.com/fwlink/?linkid=2135274
