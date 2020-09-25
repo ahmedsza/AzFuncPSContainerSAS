@@ -46,12 +46,16 @@ or with paramaters - http://localhost:7071/api/HttpSASDemo?name=hello
 login to Azure with Azrure CLI
 `az login`
 
-#### setup variable.. change names appropriately 
+#### setup variables. Change names appropriately 
 
-`$rgname='AzPSFunctionSAS-rg'
+```
+$rgname='AzPSFunctionSAS-rg'
 $location='westeurope'
 $storageaccountname='azfnstorage003'
-$azurefunctionappname='azpsfuncapp01'`
+$azurefunctionappname='azpsfuncapp01'
+```
+
+
 
 
 #### create the resource group
@@ -75,5 +79,7 @@ https://azpsfuncapp01.azurewebsites.net/api/httpsasdemo?code=AZIJU7SWA450emQynqo
 
 #### Check appinsights output
 
+```bash
 `$azurefunctionappname='azpsfuncapp01'
-func azure functionapp logstream $azurefunctionappname --browser`
+func azure functionapp logstream $azurefunctionappname --browser
+````
