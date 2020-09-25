@@ -9,36 +9,36 @@ param($Request, $TriggerMetadata)
         $LocationName = 'westeurope'
         $StorageContainerName = 'containersas01'
         $PolicyName = "saspolicydemo"
-       
-        Write-Host $ResourceGroupName 
-        Write-Host $StorageAccountName 
 
- 
+        Write-Host $ResourceGroupName
+        Write-Host $StorageAccountName
+
+
 
         $AccountKeys = Get-AzStorageAccountKey -ResourceGroupName $ResourceGroupName -Name $StorageAccountName
-        Write-Host $AccountKeys 
+        Write-Host $AccountKeys
 
- 
+
 
         $URL = "https://$StorageAccountName.blob.core.windows.net/$StorageContainerName"
         $StorageContext = New-AzStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $($AccountKeys[0].Value)
- 
+
         $StoredAccessPolicy = $(Get-AzStorageContainerStoredAccessPolicy -Context $StorageContext -Container $StorageContainerName -Policy $PolicyName)
         If(!$StoredAccessPolicy){
-        $StoredAccessPolicy = New-AzStorageContainerStoredAccessPolicy -Context $StorageContext -Container $StorageContainerName -Permission "rdwl" -ExpiryTime $(Get-Date).AddYears(10) -Policy $PolicyName  
+        $StoredAccessPolicy = New-AzStorageContainerStoredAccessPolicy -Context $StorageContext -Container $StorageContainerName -Permission "rdwl" -ExpiryTime $(Get-Date).AddYears(10) -Policy $PolicyName
         }
         $ContainerSASTokenWithPolicy = New-AzStorageContainerSASToken -Context $StorageContext -Container $StorageContainerName -Policy $PolicyName -FullUri ;
         Write-Host $ContainerSASTokenWithPolicy
         Write-Host $URL$ContainerSASTokenWithPolicy
         $returnresult="$ContainerSASTokenWithPolicy&comp=list&restype=container"
-        
+
         Write-Host $returnresult
 
- 
+
 
         Get-AzStorageContainerStoredAccessPolicy -Container $StorageContainerName -Context $StorageContext
 
- 
+
 
 
 
@@ -71,6 +71,7 @@ Write-Host "PowerShell HTTP trigger function processed a request."
 #}
 
 $body=$returnresult
+$body="test"
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = [HttpStatusCode]::OK
