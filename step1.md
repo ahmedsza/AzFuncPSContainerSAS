@@ -1,74 +1,79 @@
+## Prereqs
+#### ### **=== PREREQ, Assumes windows ==== ******
 
-=== PREREQ, Assumes windows ==== 
-
-1) Install Azure Function v2
+*1.  Install Azure Function v3*
 https://go.microsoft.com/fwlink/?linkid=2135274
 
 Details at https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local
 
-2) Make sure you have Azure CLI installed 
+*2. Make sure you have Azure CLI installed *
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest
 
 More info at https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
 
-3) Install .NET Core SDK 3.1
+*3. Install .NET Core SDK 3.1*
 https://www.microsoft.com/net/download
 
-==== check at command prompt/powershell 
+#### Verify -  command prompt/powershell 
 
 1) Az version check 
-az --version 
+`az --version `
 needs to be 2.0.76 or hiher
 
 2) check azure function version
-func --version 
+`func --version `
  2.7.1846 or later
 
 
-=== create the function project
+## Create the function project
 
-func init AzFuncSAS --powershell
-cd .\AzFuncSAS\
+### Init the function
+`func init AzFuncSAS --powershell
+cd .\AzFuncSAS\`
 
-== add the function the project
-func new --name HttpSASDemo --template "HTTP trigger"
+### add the function the project
+`func new --name HttpSASDemo --template "HTTP trigger"`
 
-== test it 
-func start
+### test it 
+`func start`
+
 browse to http://localhost:7071/api/HttpSASDemo
-http://localhost:7071/api/HttpSASDemo?name=hello
+or with paramaters - http://localhost:7071/api/HttpSASDemo?name=hello
 
 
-== deploy to Azure
-# login to Azure
-az login
+## Deploy to Azure
 
-# setup variable.. change names appropriately 
+login to Azure with Azrure CLI
+`az login`
 
-$rgname='AzPSFunctionSAS-rg'
+#### setup variable.. change names appropriately 
+
+`$rgname='AzPSFunctionSAS-rg'
 $location='westeurope'
 $storageaccountname='azfnstorage003'
-$azurefunctionappname='azpsfuncapp01'
+$azurefunctionappname='azpsfuncapp01'`
 
 
-# create the resource group
-az group create --name $rgname --location $location
+#### create the resource group
+`az group create --name $rgname --location $location`
 
-# create the Azure Storage account for the Azure function (not for SAS token)
-az storage account create --name $storageaccountname --location $location --resource-group $rgname --sku Standard_LRS
+#### create the Azure Storage account for the Azure function (not for SAS token)
+`az storage account create --name $storageaccountname --location $location --resource-group $rgname --sku Standard_LRS`
 
-# create the Azure Function App 
-az functionapp create --resource-group $rgname --consumption-plan-location $location --runtime powershell --functions-version 3 --name $azurefunctionappname --storage-account $storageaccountname
+#### create the Azure Function App 
+`az functionapp create --resource-group $rgname --consumption-plan-location $location --runtime powershell --functions-version 3 --name $azurefunctionappname --storage-account $storageaccountname`
 
-# deploy the function 
-func azure functionapp publish $azurefunctionappname
+#### deploy the function 
+`func azure functionapp publish $azurefunctionappname`
+make note of the URL with the key included 
 
-# make note of the URL with the key included 
+## Test It
 
-# test it (with URL from above) eg 
+
+#### Test it (with URL from above) eg 
 https://azpsfuncapp01.azurewebsites.net/api/httpsasdemo?code=AZIJU7SWA450emQynqosxp4CmzZexqZ5e7hAmxWx6ZVwVG0HZkAwOQ==
 
-# see appinsights output
+#### Check appinsights output
 
-$azurefunctionappname='azpsfuncapp01'
-func azure functionapp logstream $azurefunctionappname --browser
+`$azurefunctionappname='azpsfuncapp01'
+func azure functionapp logstream $azurefunctionappname --browser`
