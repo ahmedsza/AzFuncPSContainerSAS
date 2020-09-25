@@ -1,0 +1,30 @@
+
+$rgname='AzPSFunctionSAS-rg'
+$location='westeurope'
+$storageaccountname='azfnstorage003'
+$azurefunctionappname='azpsfuncapp01'
+
+# assign the function app a managed idendity
+az functionapp identity assign -n $azurefunctionappname -g $rgname
+
+$principalId = az functionapp identity show -n $azurefunctionappname -g $rgname --query principalId -o tsv
+$tenantId = az functionapp identity show -n $azurefunctionappname -g $rgname --query tenantId -o tsv
+$principalId
+$tenantId
+
+
+## might need to  wait for 30-60 second
+
+# assign the MSI the appropriate permissions. Double check the min permissions
+az role assignment create `
+    --role "Storage Blob Data Contributor" `
+    --assignee $principalId `
+    --scope "/subscriptions/$subscription/resourceGroups/$rgname/providers/Microsoft.Storage/storageAccounts/$storageaccountname"
+
+
+# if above does not work. try this. 
+az role assignment create `
+    --role "Storage Account Contributor" `
+    --assignee $principalId `
+    --scope "/subscriptions/$subscription/resourceGroups/$rgname/providers/Microsoft.Storage/storageAccounts/$storageaccountname"
+

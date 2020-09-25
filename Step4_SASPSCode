@@ -1,0 +1,10 @@
+take code from AzFuncSAS/HttpSASDemo/run.ps1 and copy/paste it
+Change all appropriate variables
+Deploy it
+
+#change var name
+
+$azurefunctionappname='azpsfuncapp01'
+func azure functionapp publish $azurefunctionappname
+
+# get url from above. run it - it should show the SAS token. Open SAS url in anoter browser tab
