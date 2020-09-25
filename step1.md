@@ -69,6 +69,7 @@ $azurefunctionappname='azpsfuncapp01'
 
 #### deploy the function 
 `func azure functionapp publish $azurefunctionappname`
+
 make note of the URL with the key included 
 
 ## Test It
@@ -80,6 +81,6 @@ https://azpsfuncapp01.azurewebsites.net/api/httpsasdemo?code=AZIJU7SWA450emQynqo
 #### Check appinsights output
 
 ```bash
-`$azurefunctionappname='azpsfuncapp01'
+$azurefunctionappname='azpsfuncapp01'
 func azure functionapp logstream $azurefunctionappname --browser
 ````
